@@ -21,14 +21,6 @@ spring:
             allowedMethods: "*"
             allowedHeaders: "*"
       routes:
-        - id: ms-orders
-          uri: lb://ms-orders
-          predicates:
-            - Path=/orders/** //Ruta controladores
-        - id: ms-products
-          uri: lb://ms-products
-          predicates:
-            - Path=/products/**
         - id: ms-vehiculos
           uri: lb://ms-vehiculos
           predicates:
