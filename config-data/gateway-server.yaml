@@ -33,3 +33,7 @@ spring:
           uri: lb://ms-listaReparaciones
           predicates:
             - Path=/listaReparaciones/**
+        - id: ms-reparaciones
+          uri: lb://ms-reparaciones
+          predicates:
+            - Path=/reparaciones/**
