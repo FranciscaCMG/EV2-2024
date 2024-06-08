@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>cl.usach</groupId>
-	<artifactId>ms-listaReparaciones</artifactId>
+	<artifactId>ms-vehrep</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ms-listaReparaciones</name>
+	<name>ms-reportes</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
@@ -87,6 +87,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
 
 </project>

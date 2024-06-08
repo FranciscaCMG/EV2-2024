@@ -25,15 +25,19 @@ spring:
           uri: lb://ms-vehiculos
           predicates:
             - Path=/vehiculo/**
-        - id: ms-reportes
-          uri: lb://ms-reportes
+        - id: ms-vehrep
+          uri: lb://ms-vehrep
           predicates:
-            - Path=/reportes/**
-        - id: ms-listaReparaciones
-          uri: lb://ms-listaReparaciones
+            - Path=/vehrep/**
+        - id: ms-costo
+          uri: lb://ms-costo
           predicates:
-            - Path=/listaReparaciones/**
+            - Path=/costo/**
         - id: ms-reparaciones
           uri: lb://ms-reparaciones
           predicates:
             - Path=/reparacion/**
+        - id: ms-tipo
+          uri: lb://ms-tipo
+          predicates:
+            - Path=/tipo/**

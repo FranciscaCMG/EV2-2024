@@ -8,11 +8,12 @@
         <outputRelativeToContentRoot value="true" />
         <module name="config-server" />
         <module name="ms-reparaciones" />
-        <module name="ms-reportes" />
+        <module name="ms-vehrep" />
+        <module name="ms-costo" />
         <module name="gateway-server" />
-        <module name="ms-listaReparaciones" />
         <module name="eureka-server" />
         <module name="ms-vehiculos" />
+        <module name="ms-tipo" />
       </profile>
     </annotationProcessing>
   </component>
@@ -21,10 +22,11 @@
       <module name="config-server" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
       <module name="gateway-server" options="-parameters" />
-      <module name="ms-listaReparaciones" options="-parameters" />
+      <module name="ms-costo" options="-parameters" />
       <module name="ms-reparaciones" options="-parameters" />
-      <module name="ms-reportes" options="-parameters" />
+      <module name="ms-tipo" options="-parameters" />
       <module name="ms-vehiculos" options="-parameters" />
+      <module name="ms-vehrep" options="-parameters" />
     </option>
   </component>
 </project>
