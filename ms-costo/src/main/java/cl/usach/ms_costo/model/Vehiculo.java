@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Vehiculo {
+    private String n_patente;
     private String marca;
     private String modelo;
     private String tipo_auto;
@@ -15,7 +16,7 @@ public class Vehiculo {
     private String tipo_motor;
     private Integer n_asientos;
     private Integer kilometraje;
-    private int costoId;
+
 
 
 }

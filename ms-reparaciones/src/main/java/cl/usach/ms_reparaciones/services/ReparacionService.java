@@ -21,6 +21,8 @@ public class ReparacionService {
         return reparacionRepository.findById(String.valueOf(id)).orElse(null);
     }
 
+
+
     public ReparacionEntity saveReparacion(ReparacionEntity reparacion) {
         ReparacionEntity reparacionNew = reparacionRepository.save(reparacion);
         return reparacionNew;
@@ -32,4 +34,6 @@ public class ReparacionService {
 
         return reparacionRepository.save(reparacion);
     }
+
+
 }

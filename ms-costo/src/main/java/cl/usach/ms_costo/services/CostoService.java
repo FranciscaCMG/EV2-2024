@@ -31,9 +31,22 @@ public class CostoService {
         return costoNew;
     }
 
-    public Vehiculo saveVehiculo(int costoId, Vehiculo vehiculo) {
-        vehiculo.setCostoId(costoId);
+    public Vehiculo saveVehiculo( Vehiculo vehiculo) {
+
+        // Verifica que n_patente esté asignado
+        if (vehiculo.getN_patente() == null || vehiculo.getN_patente().isEmpty()) {
+            throw new IllegalArgumentException("El campo n_patente no puede estar vacío.");
+        }
+
+        // Asigna el costoId al vehículo
+
+
+        // Llama al cliente Feign para guardar el vehículo
         Vehiculo vehiculoNew = vehiculoFeignClient.save(vehiculo);
+
+        // Retorna el vehículo guardado
         return vehiculoNew;
     }
+
+
 }

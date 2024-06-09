@@ -41,9 +41,9 @@ public class CostoController {
         return ResponseEntity.ok(costoNew);
     }
 
-    @PostMapping("/savevehiculo/{costoId}")
-    public ResponseEntity<Vehiculo> saveVehiculo(@PathVariable("costoId") int costoId, @RequestBody Vehiculo vehiculo) {
-        Vehiculo vehiculoNew = costoService.saveVehiculo(costoId, vehiculo);
+    @PostMapping("/savevehiculo")
+    public ResponseEntity<Vehiculo> saveVehiculo( @RequestBody Vehiculo vehiculo) {
+        Vehiculo vehiculoNew = costoService.saveVehiculo(vehiculo);
         return ResponseEntity.ok(vehiculoNew);
     }
 
