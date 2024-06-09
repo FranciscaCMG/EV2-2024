@@ -16,5 +16,4 @@ public class Reparacion {
     private String hora_sal;
     private String fecha_sal_cli;
     private String hora_sal_cli;
-    private int costoId;
 }

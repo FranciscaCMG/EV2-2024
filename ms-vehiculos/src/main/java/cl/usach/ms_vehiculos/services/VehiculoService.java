@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VehiculoService {
@@ -26,6 +27,16 @@ public class VehiculoService {
     public VehiculoEntity saveVehiculo(VehiculoEntity vehiculo) {
         VehiculoEntity vehiculoNew = vehiculoRepository.save(vehiculo);
         return vehiculoNew;
+    }
+
+    public VehiculoEntity eliminarVehiculoPorId(String patente) {
+        Optional<VehiculoEntity> vehiculo = vehiculoRepository.findById(patente);
+        if (vehiculo.isPresent()) {
+            vehiculoRepository.delete(vehiculo.get());
+            return vehiculo.get();
+        }
+        return null;
+
     }
 
 

@@ -40,5 +40,11 @@ public class VehiculoController {
         return ResponseEntity.ok(vehiculoNew);
     }
 
+    @DeleteMapping("/eliminar/{patente}")
+    public ResponseEntity<VehiculoEntity> eliminarVehiculoPorId(@PathVariable String patente) {
+        VehiculoEntity vehiculoEliminado = vehiculoService.eliminarVehiculoPorId(patente);
+        return ResponseEntity.ok(vehiculoEliminado);
+    }
+
 
 }

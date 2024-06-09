@@ -18,6 +18,12 @@ public class CostoService {
     @Autowired
     VehiculoFeignClient vehiculoFeignClient;
 
+    Integer anio_actual= 2024;
+    Integer cantToyota = 5;
+    Integer cantFord = 2;
+    Integer cantHyundai = 1;
+    Integer cantHonda = 7;
+
     public List<CostoEntity> getAll() {
         return costoRepository.findAll();
     }
@@ -32,21 +38,17 @@ public class CostoService {
     }
 
     public Vehiculo saveVehiculo( Vehiculo vehiculo) {
-
-        // Verifica que n_patente esté asignado
         if (vehiculo.getN_patente() == null || vehiculo.getN_patente().isEmpty()) {
             throw new IllegalArgumentException("El campo n_patente no puede estar vacío.");
         }
-
-        // Asigna el costoId al vehículo
-
-
-        // Llama al cliente Feign para guardar el vehículo
         Vehiculo vehiculoNew = vehiculoFeignClient.save(vehiculo);
-
-        // Retorna el vehículo guardado
         return vehiculoNew;
     }
+
+
+
+
+
 
 
 }
