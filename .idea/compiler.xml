@@ -8,14 +8,16 @@
         <outputRelativeToContentRoot value="true" />
         <module name="config-server" />
         <module name="ms-reparaciones" />
-        <module name="ms-vehrep" />
         <module name="ms-costo" />
         <module name="gateway-server" />
         <module name="eureka-server" />
         <module name="ms-vehiculos" />
-        <module name="ms-tipo" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ms-tipo" target="17" />
+      <module name="ms-vehrep" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

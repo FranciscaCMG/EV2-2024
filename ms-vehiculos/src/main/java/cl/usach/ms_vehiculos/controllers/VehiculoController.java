@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/vehiculo")
 @CrossOrigin("*")
@@ -16,10 +18,27 @@ public class VehiculoController {
     @Autowired
     private VehiculoService vehiculoService;
 
-    @PostMapping("/guardar")
-    public ResponseEntity<VehiculoEntity> guardarVehiculo(@RequestBody VehiculoEntity vehiculo) {
-        VehiculoEntity vehiculoGuardado = vehiculoService.guardarVehiculo(vehiculo);
-        return ResponseEntity.ok(vehiculoGuardado);
+    @GetMapping
+    public ResponseEntity<List<VehiculoEntity>> getAll() {
+        List<VehiculoEntity> vehiculos = vehiculoService.getAll();
+        if(vehiculos.isEmpty())
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(vehiculos);
     }
+
+    @GetMapping("/{patente}")
+    public ResponseEntity<VehiculoEntity> getById(@PathVariable ("patente") String patente) {
+        VehiculoEntity vehiculo = vehiculoService.getVehiculoById(patente);
+        if(vehiculo == null)
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(vehiculo);
+    }
+
+    @PostMapping()
+    public ResponseEntity<VehiculoEntity> save(@RequestBody VehiculoEntity vehiculo) {
+        VehiculoEntity vehiculoNew = vehiculoService.saveVehiculo(vehiculo);
+        return ResponseEntity.ok(vehiculoNew);
+    }
+
 
 }
