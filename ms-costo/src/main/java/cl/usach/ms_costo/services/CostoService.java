@@ -34,7 +34,6 @@ public class CostoService {
     public Vehiculo saveVehiculo(int costoId, Vehiculo vehiculo) {
         vehiculo.setCostoId(costoId);
         Vehiculo vehiculoNew = vehiculoFeignClient.save(vehiculo);
-
         return vehiculoNew;
     }
 }
