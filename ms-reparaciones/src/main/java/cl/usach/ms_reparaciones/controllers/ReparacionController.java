@@ -38,9 +38,10 @@ public class ReparacionController {
         return ResponseEntity.ok(reparacionNew);
     }
 
-    @GetMapping("/reparaciondesc/{patente}/{tipo_motor}")
-    public ResponseEntity<Integer> reparaciondesc(@PathVariable String patente, @PathVariable String tipo_motor) {
-        Integer reparaciondesc = reparacionService.reparaciondesc(patente, tipo_motor);
+
+    @PostMapping("/reparaciondesc/{patente}/{tipo_motor}")
+    public ResponseEntity<Integer> reparaciondesc(@PathVariable String patente, @PathVariable("tipo_motor") String tipoMotor) {
+        Integer reparaciondesc = reparacionService.reparaciondesc(patente, tipoMotor);
         return ResponseEntity.ok(reparaciondesc);
     }
 

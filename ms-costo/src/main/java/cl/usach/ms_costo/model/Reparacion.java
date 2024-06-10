@@ -8,10 +8,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Reparacion {
+
     private String n_patente;
     private String fecha_ing;
     private String hora_ing;
-    private Float monto_total;
+    private Boolean bono;
+    private Float monto_total_tiporep;
+    private Float recargo;
+    private Float descuento;
+    private Float iva;
+    private Float costo_total;
     private String fecha_sal;
     private String hora_sal;
     private String fecha_sal_cli;

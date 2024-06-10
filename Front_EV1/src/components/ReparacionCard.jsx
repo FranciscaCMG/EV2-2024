@@ -151,8 +151,8 @@ export default function VehiculoCard() {
                 <div>Loading...</div>
             )}
 
-            <Grid container spacing={2}>
-                <Grid item xs={6}>
+            <Grid container spacing={3} justifyContent="center">
+                <Grid item>
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 2 }}>
                         <Button
                             variant='contained'
@@ -163,7 +163,20 @@ export default function VehiculoCard() {
                         </Button>
                     </Box>
                 </Grid>
-                <Grid item xs={6}>
+
+                <Grid item>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 2 }}>
+                        <Button
+                            variant='contained'
+                            color="primary"
+                            onClick={handleSubmit}
+                        >
+                            Calcular Costo
+                        </Button>
+                    </Box>
+                </Grid>
+
+                <Grid item>
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 2 }}>
                         <Button
                             variant='contained'
@@ -174,7 +187,6 @@ export default function VehiculoCard() {
                         </Button>
                     </Box>
                 </Grid>
-
             </Grid>
 
         </Box>
