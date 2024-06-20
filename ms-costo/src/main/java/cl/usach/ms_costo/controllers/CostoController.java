@@ -78,6 +78,18 @@ public class CostoController {
         return ResponseEntity.ok(descuento);
     }
 
+    @PostMapping("/sumaTipo/{tipo}/{tipo_motor}")
+    public ResponseEntity<Integer> sumaTipos(@PathVariable("tipo") Integer tipo, @PathVariable("tipo_motor") String tipoMotor) {
+        Integer suma = costoService.costoTipo(tipo, tipoMotor);
+        return ResponseEntity.ok(suma);
+    }
+
+    @PostMapping("/totalTipo/{tipo}/{tipo_motor}")
+    public ResponseEntity<Integer> sumaTiposRe(@PathVariable("tipo") String tipo, @PathVariable("tipo_motor") String tipoMotor) {
+        Integer suma = costoService.costoTipos(tipo, tipoMotor);
+        return ResponseEntity.ok(suma);
+    }
+
 
 
 }

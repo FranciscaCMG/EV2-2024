@@ -20,6 +20,7 @@ public class ReparacionEntity {
     private String fecha_ing;
     private String hora_ing;
     private Boolean bono;
+    private String tipo_reparaciones;
     private Float monto_total_tiporep;
     private Float recargo;
     private Float descuento;

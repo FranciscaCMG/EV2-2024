@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import * as React from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import OutboxIcon from '@mui/icons-material/Outbox';
 import FormGroup from '@mui/material/FormGroup';
@@ -14,12 +15,43 @@ export default function FormReparacion(props) {
 
     const data = props.data;
     console.log("DATAAAAA props", data);
-    const [tipoArray, setTipoRep] = useState([]);
-    const [reparacion, setReparacion] = useState(null);
+    const [tipoArray, setTipoRep] = useState("");
     const [activacion, setActivacion] = useState(false);
-    const [montoTotal, setMontoTotal] = useState(0);
 
- 
+    const [state, setState] = React.useState({
+        uno: false,
+        dos: false,
+        tres: false,
+        cuatro: false,
+        cinco: false,
+        seis: false,
+        siete: false,
+        ocho: false,
+        nueve: false,
+        diez: false,
+        once: false,
+    });
+
+    const handleChange = (event) => {
+        setState({
+            ...state,
+            [event.target.name]: event.target.checked,
+        });
+    };
+
+    const { uno, dos, tres, cuatro, cinco, seis, siete, ocho, nueve, diez, once } = state;
+
+    useEffect(() => {
+        const numbers = [uno && "1", dos && "2", tres && "3", cuatro && "4", cinco && "5",
+        seis && "6", siete && "7", ocho && "8", nueve && "9", diez && "10", once && "11"]
+            .filter(Boolean); 
+            setTipoRep(numbers.join(","));
+
+    }, [state]);
+
+    console.log("TIPO ARRAY", tipoArray);
+
+
 
     function fechaIng(fechaCompleta) {
         let fecha = fechaCompleta.split(",");
@@ -50,11 +82,14 @@ export default function FormReparacion(props) {
         var fecha = fechaActualyHora();
         console.log("ME EJECUTE")
 
+
+
         axios.post('http://localhost:8093/reparacion', {
             n_patente: data.n_patente,
             fecha_ing: fechaIng(fecha),
             hora_ing: horaIng(fecha),
             bono: activacion,
+            tipo_reparaciones: tipoArray,
             monto_total_tiporep: null,
             recargo: null,
             descuento: null,
@@ -70,13 +105,7 @@ export default function FormReparacion(props) {
         }).catch(error => {
             console.log(error);
         });
-
-        for (let i = 0; i < tipoArray.length; i++) {
-            console.log("entrefor");
-            axios.get(`http://localhost:8090/costo/tipo/${tipoArray[i]}/${data.tipo_motor}/${data.n_patente}`);
-        }
     }
-
 
     return (
         <>
@@ -99,69 +128,58 @@ export default function FormReparacion(props) {
                         <FormGroup aria-label="position" row>
                             <FormControlLabel
                                 value="top"
-                                control={<Checkbox />}
+                                control={<Checkbox checked={uno} onChange={handleChange} name="uno" />}
                                 label="1"
-                                onClick={(e) => arrayTipo(e, 1)}
                                 labelPlacement="top" />
                             <FormControlLabel
                                 value="top"
-                                control={<Checkbox />}
+                                control={<Checkbox checked={dos} onChange={handleChange} name="dos" />}
                                 label="2"
-                                onClick={(e) => arrayTipo(e, 2)}
                                 labelPlacement="top" />
                             <FormControlLabel
                                 value="top"
-                                control={<Checkbox />}
+                                control={<Checkbox checked={tres} onChange={handleChange} name="tres" />}
                                 label="3"
-                                onClick={(e) => arrayTipo(e, 3)}
                                 labelPlacement="top" />
                             <FormControlLabel
                                 value="top"
-                                control={<Checkbox />}
+                                control={<Checkbox checked={cuatro} onChange={handleChange} name="cuatro" />}
                                 label="4"
-                                onClick={(e) => arrayTipo(e, 4)}
                                 labelPlacement="top" />
                             <FormControlLabel
                                 value="top"
-                                control={<Checkbox />}
+                                control={<Checkbox checked={cinco} onChange={handleChange} name="cinco" />}
                                 label="5"
-                                onClick={(e) => arrayTipo(e, 5)}
                                 labelPlacement="top" />
                             <FormControlLabel
                                 value="top"
-                                control={<Checkbox />}
+                                control={<Checkbox checked={seis} onChange={handleChange} name="seis" />}
                                 label="6"
-                                onClick={(e) => arrayTipo(e, 6)}
                                 labelPlacement="top" />
                             <FormControlLabel
                                 value="top"
-                                control={<Checkbox />}
+                                control={<Checkbox checked={siete} onChange={handleChange} name="siete" />}
                                 label="7"
-                                onClick={(e) => arrayTipo(e, 7)}
                                 labelPlacement="top" />
                             <FormControlLabel
                                 value="top"
-                                control={<Checkbox />}
+                                control={<Checkbox checked={ocho} onChange={handleChange} name="ocho" />}
                                 label="8"
-                                onClick={(e) => arrayTipo(e, 8)}
                                 labelPlacement="top" />
                             <FormControlLabel
                                 value="top"
-                                control={<Checkbox />}
+                                control={<Checkbox checked={nueve} onChange={handleChange} name="nueve" />}
                                 label="9"
-                                onClick={(e) => arrayTipo(e, 9)}
                                 labelPlacement="top" />
                             <FormControlLabel
                                 value="top"
-                                control={<Checkbox />}
+                                control={<Checkbox checked={diez} onChange={handleChange} name="diez" />}
                                 label="10"
-                                onClick={(e) => arrayTipo(e, 10)}
                                 labelPlacement="top" />
                             <FormControlLabel
                                 value="top"
-                                control={<Checkbox />}
+                                control={<Checkbox checked={once} onChange={handleChange} name="once" />}
                                 label="11"
-                                onClick={(e) => arrayTipo(e, 11)}
                                 labelPlacement="top" />
                         </FormGroup>
                     </FormControl>

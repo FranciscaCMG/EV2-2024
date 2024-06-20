@@ -1,6 +1,6 @@
 import { Box, Button, Grid, MenuItem, TextField } from "@mui/material";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import OutboxIcon from '@mui/icons-material/Outbox';
 
 
@@ -28,6 +28,7 @@ const tipo = [
         label: 'Furgoneta',
     },
 ];
+
 
 
 const motor = [
@@ -107,6 +108,7 @@ export default function Registro() {
             });
             axios.
                 post('http://localhost:8092/vehiculo', {
+
                     n_patente: patente.toLocaleUpperCase(),
                     marca: marca.toLocaleUpperCase(),
                     modelo: modelo.toLocaleUpperCase(),

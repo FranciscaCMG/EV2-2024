@@ -27,10 +27,7 @@ public class CostoService {
     ReparacionFeignClient reparacionFeignClient;
 
     Integer anio_actual= 2024;
-    Integer cantToyota = 5;
-    Integer cantFord = 2;
-    Integer cantHyundai = 1;
-    Integer cantHonda = 7;
+
 
     public List<CostoEntity> getAll() {
         return costoRepository.findAll();
@@ -64,6 +61,112 @@ public class CostoService {
 
     public Integer saveReparacionDesc(String patente, String tipoMotor) {
         return reparacionFeignClient.reparaciondesc(patente, tipoMotor);
+    }
+
+    public Integer costoTipo(Integer tipoRep, String tipoMotor) {
+
+        Integer valor = -1;
+
+        if (tipoRep == 1) {
+            valor = switch (tipoMotor) {
+                case "GASOLINA" -> 120000;
+                case "DIESEL" -> 120000;
+                case "HIBRIDO" -> 180000;
+                case "ELECTRICO" -> 220000;
+                default -> valor;
+            };
+        } else if (tipoRep == 2) {
+            valor = switch (tipoMotor) {
+                case "GASOLINA" -> 130000;
+                case "DIESEL" -> 130000;
+                case "HIBRIDO" -> 190000;
+                case "ELECTRICO" -> 230000;
+                default -> valor;
+            };
+        } else if (tipoRep == 3) {
+            valor = switch (tipoMotor) {
+                case "GASOLINA" -> 350000;
+                case "DIESEL" -> 450000;
+                case "HIBRIDO" -> 700000;
+                case "ELECTRICO" -> 800000;
+                default -> valor;
+            };
+        } else if (tipoRep == 4) {
+            valor = switch (tipoMotor) {
+                case "GASOLINA" -> 210000;
+                case "DIESEL" -> 210000;
+                case "HIBRIDO" -> 300000;
+                case "ELECTRICO" -> 300000;
+                default -> valor;
+            };
+        } else if (tipoRep == 5) {
+            valor = switch (tipoMotor) {
+                case "GASOLINA" -> 150000;
+                case "DIESEL" -> 150000;
+                case "HIBRIDO" -> 200000;
+                case "ELECTRICO" -> 250000;
+                default -> valor;
+            };
+        } else if (tipoRep == 6) {
+            valor = switch (tipoMotor) {
+                case "GASOLINA" -> 100000;
+                case "DIESEL" -> 120000;
+                case "HIBRIDO" -> 450000;
+                case "ELECTRICO" -> 0;
+                default -> valor;
+            };
+        } else if (tipoRep == 7) {
+            valor = switch (tipoMotor) {
+                case "GASOLINA" -> 100000;
+                case "DIESEL" -> 100000;
+                case "HIBRIDO" -> 100000;
+                case "ELECTRICO" -> 100000;
+                default -> valor;
+            };
+        } else if (tipoRep == 8) {
+            valor = switch (tipoMotor) {
+                case "GASOLINA" -> 180000;
+                case "DIESEL" -> 180000;
+                case "HIBRIDO" -> 210000;
+                case "ELECTRICO" -> 250000;
+                default -> valor;
+            };
+        } else if (tipoRep == 9) {
+            valor = switch (tipoMotor) {
+                case "GASOLINA" -> 150000;
+                case "DIESEL" -> 150000;
+                case "HIBRIDO" -> 180000;
+                case "ELECTRICO" -> 180000;
+                default -> valor;
+            };
+        } else if (tipoRep == 10) {
+            valor = switch (tipoMotor) {
+                case "GASOLINA" -> 130000;
+                case "DIESEL" -> 140000;
+                case "HIBRIDO" -> 220000;
+                case "ELECTRICO" -> 0;
+                default -> valor;
+            };
+        } else if (tipoRep == 11) {
+            valor = switch (tipoMotor) {
+                case "GASOLINA" -> 80000;
+                case "DIESEL" -> 80000;
+                case "HIBRIDO" -> 80000;
+                case "ELECTRICO" -> 80000;
+                default -> valor;
+            };
+        }
+        return valor;
+    }
+
+    public Integer costoTipos(String tipos, String tipoMotor){
+        String[] parts = tipos.split(",");
+        int suma = 0;
+        for (String part : parts) {
+            Integer tipo = Integer.parseInt(part);
+            suma = suma + costoTipo(tipo, tipoMotor);
+        }
+        return suma;
     }
 
     public Integer costoKilometraje(Integer kilometraje, String tipoAuto) {
@@ -247,8 +350,6 @@ public class CostoService {
 
         return descuentoDias;
     }
-
-
 
     public Integer recargoVe(Vehiculo vehiculo){
 

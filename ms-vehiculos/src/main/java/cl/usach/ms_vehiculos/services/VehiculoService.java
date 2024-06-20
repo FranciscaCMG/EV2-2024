@@ -16,6 +16,16 @@ public class VehiculoService {
     @Autowired
     VehiculoRepository vehiculoRepository;
 
+    Integer cantToyota = 5;
+    Integer cantFord = 2;
+    Integer cantHyundai = 1;
+    Integer cantHonda = 7;
+
+    Integer bonoToyota = 70000;
+    Integer bonoFord = 50000;
+    Integer bonoHyundai = 30000;
+    Integer bonoHonda = 40000;
+
     public List<VehiculoEntity> getAll() {
         return vehiculoRepository.findAll();
     }
@@ -39,14 +49,50 @@ public class VehiculoService {
 
     }
 
-
-
-
     public ArrayList<VehiculoEntity> obtenerVehiculo() {
         return (ArrayList<VehiculoEntity>) vehiculoRepository.findAll();
     }
 
     public VehiculoEntity guardarVehiculo(VehiculoEntity vehiculo) {
         return vehiculoRepository.save(vehiculo);
+    }
+
+    public Integer descuentoBono(Boolean activacion, String patente ) {
+        Optional<VehiculoEntity> vehiculo = vehiculoRepository.findById(patente);
+        if (activacion) {
+            if (vehiculo.get().getMarca().contains("TOYOTA")) {
+                if (cantToyota > 0) {
+                    cantToyota = cantToyota - 1;
+                    return bonoToyota;
+                } else {
+                    return 0;
+                }
+
+            } else if (vehiculo.get().getMarca().contains("FORD")) {
+                if (cantFord > 0) {
+                    cantFord = cantFord - 1;
+                    return bonoFord;
+                } else {
+                    return 0;
+                }
+            } else if (vehiculo.get().getMarca().contains("HYUNDAI")) {
+                if (cantHyundai > 0) {
+                    cantHyundai = cantHyundai - 1;
+                    return bonoHyundai;
+                } else {
+                    return 0;
+                }
+            } else if (vehiculo.get().getMarca().contains("HONDA")) {
+                if (cantHonda > 0) {
+                    cantHonda = cantHonda - 1;
+                    return bonoHonda;
+                } else {
+                    return 0;
+                }
+        }
+        } else {
+            return 0;
+        }
+        return 0;
     }
 }

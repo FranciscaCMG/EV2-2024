@@ -46,5 +46,11 @@ public class VehiculoController {
         return ResponseEntity.ok(vehiculoEliminado);
     }
 
+    @PostMapping("/descuentoBono/{activacion}/{patente}")
+    public ResponseEntity<Integer> saveDesc(@PathVariable Boolean activacion, @PathVariable String patente) {
+        Integer descuento = vehiculoService.descuentoBono(activacion, patente);
+        return ResponseEntity.ok(descuento);
+    }
+
 
 }

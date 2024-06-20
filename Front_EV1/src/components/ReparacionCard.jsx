@@ -117,13 +117,15 @@ export default function VehiculoCard() {
 
     };
 
+    
+
     useEffect(() => {
         axios.get('http://localhost:8093/reparacion')
             .then(response => {
                 setData(response.data);
             })
             .catch(() => {
-                alert("No entró a la base de datos");
+                alert("No existen reparaciones ingresadas");
             });
     }, []);
 
@@ -148,7 +150,7 @@ export default function VehiculoCard() {
                 />
 
             ) : (
-                <div>Loading...</div>
+                <div>Cargando...</div>
             )}
 
             <Grid container spacing={3} justifyContent="center">
