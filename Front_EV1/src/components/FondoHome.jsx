@@ -1,7 +1,7 @@
 export default function FondoHome() {
     return (
         <div style={{
-            backgroundImage: `url(https://lyv.cl/wp-content/uploads/slider/cache/464cf257ce74115755c3ca4ab9cb21d5/Crosstrek-pc.jpg)`,
+            backgroundImage: `url(https://servitechapp.com/wp-content/uploads/2023/03/MECANICOS-TALLER-1080x675.jpg)`,
             backgroundSize: '100% auto',
             backgroundPosition: 'center',
             height: '70vh',

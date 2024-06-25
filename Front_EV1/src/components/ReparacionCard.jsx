@@ -39,8 +39,8 @@ const columns = [
 
     },
     {
-        field: 'monto_total',
-        headerName: 'Monto Total',
+        field: 'costo_total',
+        headerName: 'Costo Total',
         editable: false,
         width: 180,
     },
@@ -50,7 +50,21 @@ const columns = [
 export default function VehiculoCard() {
 
     const [data, setData] = useState(null);
+    const [reparacion, setReparacion] = useState(null);
     const [id, setId] = useState("");
+    const [patente, setPatente] = useState("");
+    const [vehiculo, setVehiculo] = useState("");
+    const [dscReparacion, setDscReparacion] = useState("");
+    const [dscDias, setDscDias] = useState("");
+    const [dscBono, setDscBono] = useState("");
+    const [recVe, setRecVe] = useState("");
+    const [recRe, setRecRe] = useState("");
+    const [totalFinal, setTotalFinal] = useState("");
+    
+    const handleCellClick = (data) => {
+        setId(data.row.id);
+        setPatente(data.row.n_patente);
+      };
 
     function fechaIng(fechaCompleta) {
         let fecha = fechaCompleta.split(",");
@@ -77,7 +91,73 @@ export default function VehiculoCard() {
         return diaSemana + "," + fechaActual;
     }
 
-    const handleSubmit = () => {
+    // Funcion para obtener la lista de reparaciones
+    useEffect(() => {
+        axios.get('http://localhost:8093/reparacion')
+            .then(response => {
+                setData(response.data);
+            })
+            .catch(() => {
+                alert("No existen reparaciones ingresadas");
+            });
+    }, []);
+
+    // Función para obtener los datos del vehículo
+    useEffect(() => {
+        // Función para realizar la solicitud GET con la patente actualizada
+        const fetchVehiculo = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8092/vehiculo/${patente}`);
+                setVehiculo(response.data); // Actualiza el estado con los datos recibidos
+                console.log("VEHICULO", response.data);
+            } catch (error) {
+                alert("Ocurrió un error al obtener los datos del vehículo");
+                console.error(error);
+            }
+        };
+
+        // Llama a la función para realizar la solicitud cuando cambia la patente
+        if (patente) {
+            fetchVehiculo();
+        }
+        // Dependencia [patente] para ejecutar cada vez que cambia la patente
+    }, [patente]);
+
+    // Función para obtener datos de una reparacion por id
+    useEffect(() => {
+        // Función para realizar la solicitud GET con la patente actualizada
+        const fetchReparacion = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8093/reparacion/${id}`);
+                setReparacion(response.data); // Actualiza el estado con los datos recibidos
+                console.log("REPARACION ID", response.data);
+            } catch (error) {
+                alert("Ocurrió un error al obtener los datos de la reparación id");
+                console.error(error);
+            }
+        };
+
+        // Llama a la función para realizar la solicitud cuando cambia la patente
+        if (patente) {
+            fetchReparacion();
+        }
+
+        // Dependencia [patente] para ejecutar cada vez que cambia la patente
+    }, [patente]);
+
+
+    const handleSubmitEliminar = () => {
+        axios.delete(`http://localhost:8093/reparacion/eliminar/${id}`)
+          .then(response => {
+            console.log(response);
+            alert("Vehículo eliminado");
+            window.location.reload();
+          })
+          .catch(() => {
+            alert("No se pudo eliminar el vehículo");
+          });
+      }
+    const handleSubmitListo = () => {
         var fecha = fechaActualyHora();
         var fecha_sal = fechaIng(fecha);
         var hora_sal = horaIng(fecha);
@@ -97,7 +177,7 @@ export default function VehiculoCard() {
 
     };
 
-    const handleSubmit2 = () => {
+    const handleSubmitRetiro = () => {
         var fecha = fechaActualyHora();
         var fecha_sal = fechaIng(fecha);
         var hora_sal = horaIng(fecha);
@@ -117,7 +197,58 @@ export default function VehiculoCard() {
 
     };
 
+    const handleSubmitCalculo = () => {
+        // Descuentos
+        axios.post(`http://localhost:8093/reparacion/reparaciondesc/${patente}/${vehiculo.tipo_motor}`)
+            .then(response => {
+                setDscReparacion(response.data);
+                console.log("Reparacion", response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        
+            axios.post(`http://localhost:8090/costo/descuentoDias`, {
+                n_patente: reparacion.n_patente,
+                fecha_ing: reparacion.fecha_ing,
+                hora_ing: reparacion.hora_ing,
+                bono: reparacion.bono,
+                tipo_reparaciones: reparacion.tipo_reparaciones,
+                monto_total_tiporep: reparacion.monto_total_tiporep,
+                recargo: reparacion.recargo,
+                descuento: reparacion.descuento,
+                iva: reparacion.iva,
+                costo_total: reparacion.costo_total,
+                fecha_sal: reparacion.fecha_sal,
+                hora_sal: reparacion.hora_sal,
+                fecha_sal_cli: reparacion.fecha_sal_cli,
+                hora_sal_cli: reparacion.hora_sal_cli,
+            })
+                .then(response => {
+                    setDscDias(response.data);
+                    console.log("Dias", response.data);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+
+
     
+        //http://localhost:8093/reparacion/reparaciondesc/BBCC22/HIBRIDO  POST CHECK 10%
+        //http://localhost:8090/costo/descuentoDias // jSON REPARACIONES  POST CHECK  0%
+        //http://localhost:8092/vehiculo/descuentoBono/true/BBCC22  POST  70.000
+
+        // Recargos
+        //http://localhost:8090/costo/recargoVe // JSON VEHICULO POST
+        //http://localhost:8090/costo/recargoRe // JSON REPARACIONES POST
+
+        // T1 = DATA.MONTO_TOTAL_TIPOREP + DATA.MONTO_TOTAL_TIPOREP*[DESCUENTOS-RECARGOS] 
+        // TOTAL_FINAL= T1 + T1*DATA.IVA
+
+        // Guaradar Reparacion nueva con montos nuevos :
+        // http://localhost:8093/reparacion/modificarReparacionCosto/id/desc/rec/total_final PATCH
+
+    };
 
     useEffect(() => {
         axios.get('http://localhost:8093/reparacion')
@@ -129,14 +260,15 @@ export default function VehiculoCard() {
             });
     }, []);
 
-
-
     return (
-        <Box sx={{ height: 371, width: '100%' }}>
+        <Box sx={{ height: 300, width: '100%' }}>
             {data ? (
                 <DataGrid
                     rows={data}
-                    onCellClick={data => setId(data.row.id)}
+                    onCellClick={data => {
+                        setId(data.row.id);
+                        setPatente(data.row.n_patente);
+                    }}
                     columns={columns}
                     initialState={{
                         pagination: {
@@ -159,7 +291,7 @@ export default function VehiculoCard() {
                         <Button
                             variant='contained'
                             color="warning"
-                            onClick={handleSubmit}
+                            onClick={handleSubmitListo}
                         >
                             Reparacion Lista
                         </Button>
@@ -170,8 +302,20 @@ export default function VehiculoCard() {
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 2 }}>
                         <Button
                             variant='contained'
+                            color="success"
+                            onClick={handleSubmitRetiro}
+                        >
+                            Retiro Cliente
+                        </Button>
+                    </Box>
+                </Grid>
+
+                <Grid item>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 2 }}>
+                        <Button
+                            variant='contained'
                             color="primary"
-                            onClick={handleSubmit}
+                            onClick={handleSubmitCalculo}
                         >
                             Calcular Costo
                         </Button>
@@ -182,10 +326,10 @@ export default function VehiculoCard() {
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 2 }}>
                         <Button
                             variant='contained'
-                            color="success"
-                            onClick={handleSubmit2}
+                            color="error"
+                            onClick={handleSubmitEliminar}
                         >
-                            Retiro Cliente
+                            Eliminar
                         </Button>
                     </Box>
                 </Grid>

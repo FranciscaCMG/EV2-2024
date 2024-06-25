@@ -38,6 +38,11 @@ public class ReparacionController {
         return ResponseEntity.ok(reparacionNew);
     }
 
+    @DeleteMapping("/eliminar/{id}")
+    public ResponseEntity<ReparacionEntity> eliminarReparacionPorId(@PathVariable String id) {
+        ReparacionEntity reparacionEliminado = reparacionService.eliminarReparacionPorId(id);
+        return ResponseEntity.ok(reparacionEliminado);
+    }
 
     @PostMapping("/reparaciondesc/{patente}/{tipo_motor}")
     public ResponseEntity<Integer> reparaciondesc(@PathVariable String patente, @PathVariable("tipo_motor") String tipoMotor) {
@@ -54,6 +59,12 @@ public class ReparacionController {
     @PatchMapping("/modificarListo/{id}/{fecha_salida}/{hora_salida}")
     public ResponseEntity<ReparacionEntity> modificarReparacionListo(@PathVariable String id, @PathVariable String fecha_salida,@PathVariable String hora_salida) {
         ReparacionEntity reparacionModificado = reparacionService.modificarReparacionListo(id, fecha_salida, hora_salida);
+        return ResponseEntity.ok(reparacionModificado);
+    }
+
+    @PatchMapping("/modificarReparacionCosto/{id}/{descuento}/{recargo}/{total}")
+    public ResponseEntity<ReparacionEntity> modificarReparacionCosto(@PathVariable String id, @PathVariable float descuento, @PathVariable float recargo, @PathVariable float total) {
+        ReparacionEntity reparacionModificado = reparacionService.modificarReparacionCosto(id, descuento, recargo, total);
         return ResponseEntity.ok(reparacionModificado);
     }
 

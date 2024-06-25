@@ -14,9 +14,9 @@ import axios from 'axios';
 export default function FormReparacion(props) {
 
     const data = props.data;
-    console.log("DATAAAAA props", data);
     const [tipoArray, setTipoRep] = useState("");
     const [activacion, setActivacion] = useState(false);
+    const [dataTipo, setDataTipo] = useState(null);
 
     const [state, setState] = React.useState({
         uno: false,
@@ -49,10 +49,6 @@ export default function FormReparacion(props) {
 
     }, [state]);
 
-    console.log("TIPO ARRAY", tipoArray);
-
-
-
     function fechaIng(fechaCompleta) {
         let fecha = fechaCompleta.split(",");
         return fecha[1];
@@ -76,35 +72,59 @@ export default function FormReparacion(props) {
         return diaSemana + "," + fechaActual;
     }
 
-    function handleSubmit(event) {
-
-        event.preventDefault();
-        var fecha = fechaActualyHora();
-        console.log("ME EJECUTE")
 
 
-
-        axios.post('http://localhost:8093/reparacion', {
-            n_patente: data.n_patente,
-            fecha_ing: fechaIng(fecha),
-            hora_ing: horaIng(fecha),
-            bono: activacion,
-            tipo_reparaciones: tipoArray,
-            monto_total_tiporep: null,
-            recargo: null,
-            descuento: null,
-            iva: null,
-            costo_total: null,
-            fecha_sal: null,
-            hora_sal: null,
-            fecha_sal_cli: null,
-            hora_sal_cli: null,
-        }).then(response => {
+    async function calcularTotalTipo() {
+        try {
+            const response = await axios.post(`http://localhost:8090/costo/totalTipo/${tipoArray}/${data.tipo_motor}`, {});
+            setDataTipo(response.data);
             console.log(response);
-            alert("Reparación Ingresada Correctamente");
-        }).catch(error => {
-            console.log(error);
-        });
+            console.log("COSTO TOTAL TIPO", response.data);
+            return response.data; // Devolvemos el resultado para que se pueda usar en guardarReparacion()
+        } catch (error) {
+            console.log("Error en calcularTotalTipo:", error);
+            throw error; // Lanzamos el error para que lo maneje el siguiente nivel
+        }
+    }
+    
+    async function guardarReparacion() {
+        try {
+            var fecha = fechaActualyHora();
+            // Obtenemos el resultado de calcularTotalTipo()
+            const dataTipo = await calcularTotalTipo(); 
+            const response = await axios.post('http://localhost:8093/reparacion', {
+                n_patente: data.n_patente,
+                fecha_ing: fechaIng(fecha),
+                hora_ing: horaIng(fecha),
+                bono: activacion,
+                tipo_reparaciones: tipoArray,
+                monto_total_tiporep: dataTipo,
+                recargo: null,
+                descuento: null,
+                iva: null,
+                costo_total: null,
+                fecha_sal: null,
+                hora_sal: null,
+                fecha_sal_cli: null,
+                hora_sal_cli: null,
+            });
+            console.log(response);
+            // Aquí puedes hacer cualquier otra cosa después de guardar la reparación
+            alert("Reparación ingresada con éxito");
+            window.location.reload(); 
+        } catch (error) {
+            console.log("Error en guardarReparacion:", error);
+            throw error; // Lanzamos el error para que lo maneje el siguiente nivel
+        }
+    }
+    
+    async function handleSubmit(event) {
+        event.preventDefault();
+        try {
+            await guardarReparacion();
+        } catch (error) {
+            console.log("Error en handleSubmit:", error);
+        }
     }
 
     return (
@@ -123,7 +143,7 @@ export default function FormReparacion(props) {
                 </Grid>
 
                 <Grid item xs={6}>
-                    <h4>Tipo de Reparación</h4>
+                    <h4 >Tipo de Reparación</h4>
                     <FormControl component="fieldset">
                         <FormGroup aria-label="position" row>
                             <FormControlLabel
@@ -184,12 +204,13 @@ export default function FormReparacion(props) {
                         </FormGroup>
                     </FormControl>
 
-                </Grid>
+                </Grid >
 
-                {data.marca === 'TOYOTA' || data.marca === 'FORD' || data.marca === 'HYUNDAI' || data.marca === 'HONDA' ? <Grid item xs={6} container justifyContent="center" alignItems="center">
+                {data.marca === 'TOYOTA' || data.marca === 'FORD' || data.marca === 'HYUNDAI' || data.marca === 'HONDA' ? 
+                <Grid item xs={6} container justifyContent="center" alignItems="center" style={{ padding: 0 }}>
 
                     <Typography>No</Typography>
-                    <FormControlLabel
+                    <FormControlLabel sx={{ paddingLeft: 0, paddingRight: 0, }} 
                         onClick={(e) => setActivacion(e.target.checked)}
                         value="top"
                         control={<Switch color="primary" />}
@@ -208,7 +229,7 @@ export default function FormReparacion(props) {
                         variant="contained"
                         onClick={handleSubmit}
 
-                        sx={{ mt: 3, mb: 2, marginLeft: 0, marginTop: 6, width: '20rem' }}
+                        sx={{ mt: 3, mb: 2, marginLeft: 0, marginTop: 3, width: '20rem' }}
                     >
                         Ingresar Reparación
                     </Button>

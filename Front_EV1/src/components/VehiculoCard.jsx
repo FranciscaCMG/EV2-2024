@@ -83,14 +83,14 @@ export default function VehiculoCard() {
         setData(newData);
       })
       .catch(() => {
-        alert("No entró a la base de datos");
+        alert("No hay vehículos registrados");
       });
   }, []);
 
 
 
   return (
-    <Box sx={{ height: 371, width: '100%' }}>
+    <Box sx={{ height: 300, width: '100%' }}>
       {data ? (
         <DataGrid
           rows={data}
@@ -108,7 +108,7 @@ export default function VehiculoCard() {
         />
 
       ) : (
-        <div>Loading...</div>
+        <div>Cargando...</div>
       )}
 
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 2 }}>

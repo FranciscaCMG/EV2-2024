@@ -28,6 +28,15 @@ public class ReparacionService {
         return reparacionNew;
     }
 
+    public ReparacionEntity eliminarReparacionPorId(String id) {
+        Optional<ReparacionEntity> reparacion = reparacionRepository.findById(id);
+        if (reparacion.isPresent()) {
+            reparacionRepository.delete(reparacion.get());
+            return reparacion.get();
+        }
+        return null;
+    }
+
     public Integer obtenerReparacionPorPatente(String patente) {
         return reparacionRepository.findByPatente(patente);
     }
@@ -112,6 +121,18 @@ public class ReparacionService {
             ReparacionEntity reparacionEntity = reparacion.get();
             reparacionEntity.setFecha_sal(fecha_salida);
             reparacionEntity.setHora_sal(hora_salida);
+            return reparacionRepository.save(reparacionEntity);
+        } else {
+            return null;
+        }
+    }
+    public ReparacionEntity modificarReparacionCosto(String id, float descuento, float recargo, float costo_total) {
+        Optional<ReparacionEntity> reparacion = reparacionRepository.findById(id);
+        if (reparacion.isPresent()) {
+            ReparacionEntity reparacionEntity = reparacion.get();
+            reparacionEntity.setDescuento(descuento);
+            reparacionEntity.setRecargo(recargo);
+            reparacionEntity.setCosto_total(costo_total);
             return reparacionRepository.save(reparacionEntity);
         } else {
             return null;

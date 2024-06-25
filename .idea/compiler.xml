@@ -7,10 +7,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="config-server" />
-        <module name="ms-reparaciones" />
-        <module name="ms-costo" />
         <module name="gateway-server" />
+        <module name="ms-reparaciones" />
         <module name="eureka-server" />
+        <module name="ms-costo" />
         <module name="ms-vehiculos" />
       </profile>
     </annotationProcessing>

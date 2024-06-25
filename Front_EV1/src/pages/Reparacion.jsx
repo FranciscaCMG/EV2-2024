@@ -32,12 +32,13 @@ export default function Reparacion() {
 
     return (
         <>
-            <h1 style={{ textAlign: 'center' }}>Registro de Reparaciones</h1>
+            <h1 style={{ textAlign: 'center', margin: '0px' }}>Registro de Reparaciones</h1>
 
             <Box
                 component="form"
                 onSubmit={handleSubmit}
                 sx={{
+                    paddingTop: '0px',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
@@ -48,7 +49,7 @@ export default function Reparacion() {
             >
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
-                        <h4>Patente</h4>
+                        <h4 style={{marginTop:'0px'}} >Patente</h4>
                         <TextField
                             id="patente"
                             label="Ingrese la patente del vehículo"
@@ -64,7 +65,7 @@ export default function Reparacion() {
                             type="submit"
                             color="warning"
                             variant="outlined"
-                            sx={{ mt: 3, mb: 2, marginLeft: 0, marginTop: 9 }}
+                            sx={{ mt: 3, mb: 2, marginLeft: 0, marginTop: 7 }}
                         >
                             Revisar Patente
                         </Button>

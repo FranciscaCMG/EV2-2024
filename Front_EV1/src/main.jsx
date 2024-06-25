@@ -10,14 +10,12 @@ import '@fontsource/roboto/700.css';
 import './index.css'
 
 const theme = createTheme({
-  palette: {
-    mode: 'light',
-    primary: {
-      main: '#0288d1',
-    },
-    secondary: {
-      main: '#01579b',
-    },
+  typography: {
+    fontFamily: [
+      'Montserrat',
+      'Arial',
+      'sans-serif',
+    ].join(','),
   },
 });
 
