@@ -90,7 +90,7 @@ export default function VehiculoCard() {
 
 
   return (
-    <Box sx={{ height: 300, width: '100%' }}>
+    <Box sx={{ height: 371, width: '100%' }}>
       {data ? (
         <DataGrid
           rows={data}

@@ -4,7 +4,7 @@ export default function FondoHome() {
             backgroundImage: `url(https://servitechapp.com/wp-content/uploads/2023/03/MECANICOS-TALLER-1080x675.jpg)`,
             backgroundSize: '100% auto',
             backgroundPosition: 'center',
-            height: '70vh',
+            height: '60vh',
             width: '100%',
             paddingInline: 0,
             display: 'flex',

@@ -19,10 +19,11 @@ export default function ContentHome() {
                     padding: '20px', // Espaciado interno
                     maxWidth: '600px', // Ancho máximo del Box
                     margin: 'auto', // Centrar en la página
+                    
 
                 }}
             >
-                <Grid container spacing={3} borderRadius={'50px'}>
+                <Grid container spacing={3} borderRadius={'50px'} >
                     <Typography variant="h4" component="h1" gutterBottom style={{ paddingTop: '24px', paddingLeft: '24px', margin: '0px', color: '#2980B9' }}>
                         Elige el servicio a realizar
                     </Typography>

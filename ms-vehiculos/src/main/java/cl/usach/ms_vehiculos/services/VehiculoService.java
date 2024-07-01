@@ -65,7 +65,7 @@ public class VehiculoService {
                     cantToyota = cantToyota - 1;
                     return bonoToyota;
                 } else {
-                    return 0;
+                    return 100;
                 }
 
             } else if (vehiculo.get().getMarca().contains("FORD")) {
@@ -73,21 +73,21 @@ public class VehiculoService {
                     cantFord = cantFord - 1;
                     return bonoFord;
                 } else {
-                    return 0;
+                    return 101;
                 }
             } else if (vehiculo.get().getMarca().contains("HYUNDAI")) {
                 if (cantHyundai > 0) {
                     cantHyundai = cantHyundai - 1;
                     return bonoHyundai;
                 } else {
-                    return 0;
+                    return 102;
                 }
             } else if (vehiculo.get().getMarca().contains("HONDA")) {
                 if (cantHonda > 0) {
                     cantHonda = cantHonda - 1;
                     return bonoHonda;
                 } else {
-                    return 0;
+                    return 103;
                 }
         }
         } else {

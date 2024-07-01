@@ -126,12 +126,13 @@ public class ReparacionService {
             return null;
         }
     }
-    public ReparacionEntity modificarReparacionCosto(String id, float descuento, float recargo, float costo_total) {
+    public ReparacionEntity modificarReparacionCosto(String id, float descuento, float recargo, float iva , float costo_total) {
         Optional<ReparacionEntity> reparacion = reparacionRepository.findById(id);
         if (reparacion.isPresent()) {
             ReparacionEntity reparacionEntity = reparacion.get();
             reparacionEntity.setDescuento(descuento);
             reparacionEntity.setRecargo(recargo);
+            reparacionEntity.setIva(iva);
             reparacionEntity.setCosto_total(costo_total);
             return reparacionRepository.save(reparacionEntity);
         } else {

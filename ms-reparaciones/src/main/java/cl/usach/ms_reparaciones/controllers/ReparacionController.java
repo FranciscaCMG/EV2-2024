@@ -62,11 +62,9 @@ public class ReparacionController {
         return ResponseEntity.ok(reparacionModificado);
     }
 
-    @PatchMapping("/modificarReparacionCosto/{id}/{descuento}/{recargo}/{total}")
-    public ResponseEntity<ReparacionEntity> modificarReparacionCosto(@PathVariable String id, @PathVariable float descuento, @PathVariable float recargo, @PathVariable float total) {
-        ReparacionEntity reparacionModificado = reparacionService.modificarReparacionCosto(id, descuento, recargo, total);
+    @PatchMapping("/modificarReparacionCosto/{id}/{descuento}/{recargo}/{iva}/{total}")
+    public ResponseEntity<ReparacionEntity> modificarReparacionCosto(@PathVariable String id, @PathVariable float descuento, @PathVariable float recargo, @PathVariable float iva , @PathVariable float total) {
+        ReparacionEntity reparacionModificado = reparacionService.modificarReparacionCosto(id, descuento, recargo, iva,  total);
         return ResponseEntity.ok(reparacionModificado);
     }
-
-
 }
