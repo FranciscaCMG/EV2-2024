@@ -1,5 +1,10 @@
 server:
   port: 8094
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/lista
+    username: postgres
+    password: admin
 eureka:
   instance:
     preferIpAddress: true
