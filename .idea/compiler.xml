@@ -6,11 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="lista" />
         <module name="config-server" />
-        <module name="gateway-server" />
         <module name="ms-reparaciones" />
-        <module name="eureka-server" />
         <module name="ms-costo" />
+        <module name="ms-reportes" />
+        <module name="gateway-server" />
+        <module name="eureka-server" />
         <module name="ms-vehiculos" />
       </profile>
     </annotationProcessing>
@@ -24,8 +26,10 @@
       <module name="config-server" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
       <module name="gateway-server" options="-parameters" />
+      <module name="lista" options="-parameters" />
       <module name="ms-costo" options="-parameters" />
       <module name="ms-reparaciones" options="-parameters" />
+      <module name="ms-reportes" options="-parameters" />
       <module name="ms-tipo" options="-parameters" />
       <module name="ms-vehiculos" options="-parameters" />
       <module name="ms-vehrep" options="-parameters" />
