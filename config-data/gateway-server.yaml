@@ -25,10 +25,10 @@ spring:
           uri: lb://ms-vehiculos
           predicates:
             - Path=/vehiculo/**
-        - id: ms-vehrep
-          uri: lb://ms-vehrep
+        - id: lista
+          uri: lb://lista
           predicates:
-            - Path=/vehrep/**
+            - Path=/lista/**
         - id: ms-costo
           uri: lb://ms-costo
           predicates:
